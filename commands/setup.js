@@ -7,7 +7,7 @@ module.exports = {
     .setName('셋업')
     .setDescription('음악 전용 채널을 설정합니다.'),
 
-  async execute(interaction) {
+    async execute(interaction) {
     const channel = interaction.channel
     const queue = global.musicQueue // 음악 재생 상태 확인 (예제)
 

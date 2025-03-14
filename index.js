@@ -18,10 +18,11 @@ client.commands = new Collection()
 const eventFiles = fs.readdirSync(path.join(__dirname, 'events')).filter(file => file.endsWith('.js'))
 for (const file of eventFiles) {
   const event = require(`./events/${file}`)
-  if (file === 'ready.js') {
-    client.once('ready', () => event(client))
+
+  if (event.name && typeof event.execute === 'function') {
+    client.on(event.name, event.execute) // ✅ 함수만 등록하도록 수정
   } else {
-    client.on(file.replace('.js', ''), event)
+    console.error(`❌ 잘못된 이벤트 파일: ${file} (execute 함수 없음)`)
   }
 }
 
